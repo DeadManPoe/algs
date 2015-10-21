@@ -2,7 +2,7 @@
 
 /**
   Produces an array of edges ordered by cost
-  @param edges_with_cost The set of edges that we want
+  @param edges_with_cost The set of edges (an array) that we want
   to order by cost. Note that the following
   structure of edges_with_cost is supposed:
   [
@@ -39,7 +39,7 @@ var sort_edges_by_cost = function(edges_with_cost){
   Detects if the given couple of nodes produces a cicle if added to components_container.
   We suppose that the couples of nodes inside components_container and the given
   couple of nodes represent connected nodes, so that the cycle detection has sense
-  @param components_container A set of couples of nodes
+  @param components_container A set (an array) of couples of nodes
   @param nodes_couple A couple of nodes that that maybe produce a cycle in components_container
   given what stated above
   @return true If the given couple of nodes will produce a cycle for the given set of couples of nodes,
@@ -70,9 +70,10 @@ var cycleDetect = function(components_container,nodes_couple){
 }
 /**
   Produces a minimal cost spanning tree using the kruskal algorithm given
-  a connected undirect graph
-  @param nodes The set of nodes of the considered connected undirected graph
-  @param edges_with_cost The set of edges of the considered connected undirected graph
+  a connected undirect graph and starting from the first node in the array of nodes
+  that represents the set of nodes of the mentioned graph
+  @param nodes The set of nodes of the considered connected undirected graph(an array)
+  @param edges_with_cost The set of edges(an array) of the considered connected undirected graph
   This set of edges must be in following form:
   [
     {
@@ -87,7 +88,7 @@ var cycleDetect = function(components_container,nodes_couple){
     .
     .
   ]
-  @return a set of couples of nodes representing the minimum cost spanning tree
+  @return a set (an array) of couples of nodes representing the minimum cost spanning tree
   @complexity order of (m*logm + n^2)
 **/
 var kruskal = function(nodes,edges_with_cost){

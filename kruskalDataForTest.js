@@ -1,5 +1,5 @@
-var a = ['1','2','3','4'];
-var b = [{
+var nodes = ['1','2','3','4'];
+var edges = [{
   cost : 1,
   nodes : {
     first : '1',
