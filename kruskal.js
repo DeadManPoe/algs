@@ -91,14 +91,14 @@ var cycleDetect = function(components_container,nodes_couple){
   @complexity order of (m*logm + n^2)
 **/
 var kruskal = function(nodes,edges_with_cost){
-  var sorted_edges_by_cost = sorted_edges_by_cost(edges_with_cost);
+  var sorted_edges_by_cost = sort_edges_by_cost(edges_with_cost);
   var components = [];
   var nodes_length = nodes.length;
   var nodes_couple;
   for(var i=0; i<nodes_length-1; i++){
     nodes_couple = sorted_edges_by_cost[i].nodes;
     //If the adding will produce a cycle of not
-    if(!components.findIn(nodes_couple)){
+    if(!cycleDetect(components,nodes_couple)){
       components.push(nodes_couple);
     }
   }
