@@ -42,3 +42,6 @@ var edges = [{
     }
   }
 ];
+//The result must be an array that is the one below or a one with
+//the same objects but in different order:
+//[{first: 1, second: 2},{first: 2, second: 4},{first: 1, second: 3}]
