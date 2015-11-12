@@ -1,4 +1,9 @@
 function Prim(){
+  //an example of graph
+  //the elements of exampleGraph are nodes. We suppose that a node is connected
+  //with every other node of the graph and we store the costs of these connection,
+  //if the cost is Infinity then the connection does not acctually exists
+  //We use a marker foreach node to tell us if is in the current cut
   this.exampleGraph = [
     {
       edges : [0,2,Infinity,3],
@@ -24,44 +29,59 @@ function Prim(){
     like the one of this.exampleGraph -> each node
     @param startingIndex The index of the graph's node to use as root node in the mst
     that results from the Prim's alg
+    @complexity order(graph.length^2)
   **/
   this.exec = function(graph,startingIndex){
-    var graph = arguments[0] || this.exampleNodes;
-    visitedNodes = [];
-    visitedNodes.push(startingIndex);
-    costs = [graph.length];
-    previousNodes = [graph.length];
+    var visitedNodes = [];
+    var visitedNodes.push(startingIndex);
+    var costs = [graph.length];
+    var previousNodes = [graph.length];
+    //costs and previousNodes arrays init. costs after the init will contain the cost
+    //of each edge connecting the node of startingIndex with the other nodes of
+    //the graph(a cost of Infinity means that there's no edge). previousNodes after
+    //the init will contain the node of startingIndex.
+    //At the end of the execution costs[i] will be the cost of the edge that connects
+    //node i with its previous node in the found minimum spanning tree
+    //At the end of the execution previousNodes[i] will be the previous node of node i in the minimum spanning tree
     for(var i=0; i<graph.length; i++){
         previousNodes[i] = startingIndex;
         if(i === startingIndex){
           costs[i] = 0;
         }
         else{
-            costs[i] = graph[startingIndex][i];
+            costs[i] = graph[startingIndex].edges[i];
         }
     }
+    //main cycle
+    //complexity of order(number of nodes of graph)
     while(visitedNodes.length != graph.length){
         k = Infinity;
         min = Infinity;
+        //Find the minimum cost edge belonging to the cut induced by visitedNodes
+        //complexity of order(number of nodes of graph)
         for(var i=0; i<costs.length; i++){
           if(graph[i].marked == false && costs[i] < min){
             min = costs[i];
             k = i;
           }
         }
+        //A marker is used to denote a node in the considered cut
         graph[k].marked = true;
         visitedNodes.push(k);
+        //costs and previousNodes update
+        //complexity of order(number of nodes of graph)
         for(var i=0; i<previousNodes.length; i++){
-          if(visitedNodes.indexOf(i) === -1){
-            if(costs[i] > graph[k][i]){
-              costs[i] = graph[k][i];
+          if(graph[i].marked == false){
+            if(costs[i] > graph[k].edges[i]){
+              costs[i] = graph[k].edges[i];
               previousNodes[i] = k;
             }
           }
         }
     }
+    //Print the resulting minimum spanning tree
+    //in terms of costs and previousNodes
     console.log(costs);
-    console.log(visitedNodes);
     console.log(previousNodes);
 
   }
